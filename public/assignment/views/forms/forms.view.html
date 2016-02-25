@@ -20,49 +20,28 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="text" placeholder="name"></td>
+                <td><input ng-model="form.name" type="text" placeholder="name"></td>
                 <td>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-plus"></scan>
+                    <a href="">
+                        <scan ng-click="addForm(form)" class="glyphicon glyphicon-plus"></scan>
                     </a>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-ok"></scan>
+                    <a href="">
+                        <scan ng-click="updateForm()" class="glyphicon glyphicon-ok"></scan>
                     </a>
                 </td>
             </tr>
-            <tr>
-                <td>Registration Form</td>
+            <tr ng-repeat="form in forms">
+                <td>{{form.name}}</td>
                 <td>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-remove"></scan>
+                    <a href="">
+                        <scan ng-click="deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
                     </a>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-pencil"></scan>
+                    <a href="">
+                        <scan ng-click="selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
                     </a>
                 </td>
             </tr>
-            <tr>
-                <td>Contact List</td>
-                <td>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-remove"></scan>
-                    </a>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-pencil"></scan>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>To Do List</td>
-                <td>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-remove"></scan>
-                    </a>
-                    <a href="#">
-                        <scan class="glyphicon glyphicon-pencil"></scan>
-                    </a>
-                </td>
-            </tr>
+
             </tbody>
         </table>
     </div>
