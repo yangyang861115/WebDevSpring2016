@@ -1,0 +1,18 @@
+<!-- jgaTable3.html -->
+<h2>{{caption}}</h2>
+<div class="table-responsive">
+    <table class="table table-striped" border="{{border}}">
+        <thead>
+            <tr>
+             <th ng-repeat="(key, value) in data[0]">{{key}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in data">
+                <td>{{user.first}}</td>
+                <td>{{user.last}}</td>
+                <td>{{user.email}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
