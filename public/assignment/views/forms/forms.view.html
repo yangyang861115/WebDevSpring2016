@@ -1,8 +1,8 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1 class="page-header">Forms</h1>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Forms</a></li>
-        <li role="presentation"><a href="fields.view.html">Fields</a></li>
+        <li role="presentation" class="active"><a href="#/forms">Forms</a></li>
+        <li role="presentation"><a href="#/fields">Fields</a></li>
     </ul>
     <div>
         <table class="table table-striped">
@@ -20,23 +20,23 @@
             </thead>
             <tbody>
             <tr>
-                <td><input ng-model="form.name" type="text" placeholder="name"></td>
+                <td><input ng-model="form.title" type="text" placeholder="name"></td>
                 <td>
-                    <a href="">
+                    <a>
                         <scan ng-click="addForm(form)" class="glyphicon glyphicon-plus"></scan>
                     </a>
-                    <a href="">
-                        <scan ng-click="updateForm()" class="glyphicon glyphicon-ok"></scan>
+                    <a>
+                        <scan ng-click="updateForm(form)" class="glyphicon glyphicon-ok"></scan>
                     </a>
                 </td>
             </tr>
-            <tr ng-repeat="form in forms">
-                <td>{{form.name}}</td>
+            <tr ng-repeat="form in forms" ng-class="{'success': selected === $index}">
+                <td>{{form.title}}</td>
                 <td>
-                    <a href="">
+                    <a>
                         <scan ng-click="deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
                     </a>
-                    <a href="">
+                    <a>
                         <scan ng-click="selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
                     </a>
                 </td>

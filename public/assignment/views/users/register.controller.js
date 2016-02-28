@@ -11,9 +11,12 @@
 
 
         function register (user){
-            $rootScope.user = user;
-            $location.url('/profile');
+            UserService.createUser(user, setUser);
 
+            function setUser(user){
+                $rootScope.currentUser = user;
+                $location.url('/profile');
+            }
         }
     }
 })();

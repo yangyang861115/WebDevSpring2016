@@ -8,5 +8,6 @@
 
     function SidebarController($scope, $location){
         $scope.$location = $location;
+
     }
 })();
