@@ -15,6 +15,8 @@
             });
             if ($rootScope.currentUser) {
                 $location.url('/profile');
+            } else {
+                $scope.message = "Incorrect username or password";
             }
         }
 

@@ -30,6 +30,7 @@
         function updateForm(form){
             FormService.updateFormById(form._id, form, function(){
                 $scope.form = {};
+                $scope.selected = null;
             });
         }
 
