@@ -23,6 +23,7 @@ app.get('/api/users', function(req, res){
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-require('./public/experiments/node/server.js')(app);
+require('./public/experiments/node/server.js')(app); //node courses
+require('./public/experiments/getmovie/server/app.js')(app); //getmovie
 app.listen(port, ipaddress);
 //app.listen(3000);

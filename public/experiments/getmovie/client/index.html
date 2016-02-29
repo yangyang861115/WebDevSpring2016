@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="GetMovieApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services/movie.service.client.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="GetMovieController">
+    <h1>Get Movies</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" ng-model="movie.title" class="form-control">
+                </td>
+                <td>
+                    <input type="text" ng-model="movie.director" class="form-control">
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr ng-repeat="movie in movies">
+                <td>{{movie.title}}</td>
+                <td>{{movie.director}}</td>
+                <td><a ng-click="getMovieById(movie._id)" href="#"><span class="glyphicon glyphicon-share-alt"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>{{movie.title}}</h2>
+    <span>{{movie.director}}</span>
+    <span class="danger">{{error}}</span>
+</div>
+
+</body>
+</html>
