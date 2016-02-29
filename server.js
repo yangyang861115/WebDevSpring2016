@@ -7,8 +7,6 @@ var upload = multer(); // for parsing multipart/form-data
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
-require('./public/experiments/node/server.js')(app);
 app.use(express.static(__dirname + '/public'));
 //app.get('/', function(req, res){
 //  res.send('hello world');
@@ -25,6 +23,6 @@ app.get('/api/users', function(req, res){
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-
+require('./public/experiments/node/server.js')(app);
 app.listen(port, ipaddress);
 //app.listen(3000);
