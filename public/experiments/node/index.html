@@ -43,7 +43,12 @@
             </tr>
         </tbody>
     </table>
-    {{testCourse}}
+    <h3>Dropdown Rendered with Server Data</h3>
+    <select ng-model="selectedCourse"
+            ng-options="course.title for course in courses" class="form-control"
+            ng-change="selectCourse($index)">
+    </select>
+{{selectedCourse}}
 </div>
 
 </body>
