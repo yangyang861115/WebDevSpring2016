@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .nowarp {
+            white-space: nowrap;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="course.service.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="CourseController">
+    <h1>courses</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>title</th>
+            <th>seat</th>
+            <th>date</th>
+            <th>action</th>
+        </tr>
+        <tr>
+            <td><input type="text" class="form-control" ng-model="course.title"></td>
+            <td><input type="text" class="form-control" ng-model="course.seat"></td>
+            <td><input type="text" class="form-control" ng-model="course.date"></td>
+            <td class="nowarp">
+                <button class="btn btn-primary" ng-click="createCourse(course)">add</button>
+                <button class="btn btn-success" ng-click="updateCourse(course)" ng-show="course">update</button>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="course in courses" ng-click="selectCourse($index)" ng-class="{'success': selectedCourseIndex == $index}">
+                <td>{{course.title}}</td>
+                <td>{{course.seat}}</td>
+                <td>{{course.date | date}}</td>
+                <td><button class="btn btn-danger" ng-click="removeCourse($index)">remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+    {{testCourse}}
+</div>
+
+</body>
+</html>
