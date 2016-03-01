@@ -1,9 +1,10 @@
 /**
  * Created by yangyang on 2/29/16.
  */
-module.exports = function() {
-    var forms = require('./form.mock.json');
 
+var forms = require('./form.mock.json');
+
+module.exports = function() {
     var api = {
         createForm: createForm,
         findAllForms: findAllForms,
@@ -18,7 +19,7 @@ module.exports = function() {
         var now = new Date();
         form._id = "id" + now.getTime();
         forms.push(form);
-        return form;
+        return forms;
     }
 
     function findAllForms() {
