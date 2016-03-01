@@ -167,20 +167,19 @@
                     <lable>Add New Field:</lable>
                     <div class="row">
                         <div  class="col-sm-6">
-                            <select class="form-control">
+                            <select class="form-control" ng-model="model.fieldType">
                                 <option>Single Line Text</option>
-                                <option>Date</option>
-                                <option>Dropdown</option>
-                                <option>Checkboxes</option>
-                                <option>Radio</option>
-                                <option>buttons</option>
-                                <option>Paragraph Text</option>
+                                <option>Multi Line Text Field</option>
+                                <option>Date Field</option>
+                                <option>Dropdown Field</option>
+                                <option>Checkboxes Field</option>
+                                <option>Radio Buttons Field</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#">
+                            <button class="btn" ng-click="addField(model.fieldType)">
                                 <scan class="glyphicon glyphicon-plus"></scan>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </form>

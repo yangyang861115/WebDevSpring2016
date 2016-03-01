@@ -14,30 +14,35 @@
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
-        FormService.findAllFormsForUser(user._id, function (forms){
-            $scope.forms = forms;
-        });
+        function init(){
+            FormService
+                .findAllFormsForUser(user._id)
+                .then(renderForms, renderError);
+        }
+        init();
 
         function addForm(form){
             if(form != null) {
-                FormService.createFormForUser(user._id, form, function (form){
-                    $scope.form = {};
-                    $scope.forms.push(form);
-                });
+                FormService
+                    .createFormForUser(user._id, form)
+                    .then(renderForms, renderError);
             }
         }
 
         function updateForm(form){
-            FormService.updateFormById(form._id, form, function(){
-                $scope.form = {};
-                $scope.selected = null;
-            });
+            FormService
+                .updateFormById(form._id, form)
+                .then(renderForms, renderError);
+            $scope.selected = null;
         }
 
         function deleteForm(index){
-            FormService.deleteFormById($scope.forms[index]._id, function(forms){
-                $scope.forms.splice(index, 1);
-            });
+            FormService
+                .deleteFormById($scope.forms[index]._id)
+                .then(function () {
+                    return FormService.findAllFormsForUser();
+                })
+                .then(renderForms, renderError);
         }
 
         function selectForm(index){
@@ -45,6 +50,13 @@
             $scope.selected = index;
         }
 
+        function renderForms(response) {
+            $scope.forms = response.data;
+        }
+
+        function renderError (response) {
+            $scope.message = response.data.message;
+        }
 
     }
 })();

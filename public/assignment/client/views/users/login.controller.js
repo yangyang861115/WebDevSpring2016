@@ -10,13 +10,18 @@
         $scope.login = login;
 
         function login(user){
-            UserService.findUserByCredentials(user.username, user.password, function(user){
-                $rootScope.currentUser = user;
-            });
-            if ($rootScope.currentUser) {
+            UserService
+                .findUserByCredentials(user.username, user.password)
+                .then(renderUser, renderError);
+
+            function renderUser (response){
+                console.log(response.data);
+                $rootScope.currentUser = response.data;
                 $location.url('/profile');
-            } else {
-                $scope.message = "Incorrect username or password";
+            }
+
+            function renderError (response){
+                $scope.message = response.data.message;
             }
         }
 

@@ -11,11 +11,16 @@
 
 
         function register (user){
-            UserService.createUser(user, setUser);
+            UserService
+                .createUser(user)
+                .then(renderUser, renderError);
 
-            function setUser(user){
-                $rootScope.currentUser = user;
+            function renderUser(response){
+                $rootScope.currentUser = response.data.user;
                 $location.url('/profile');
+            }
+            function renderError(response){
+                $scope.message = response.data.message;
             }
         }
     }
