@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="OmdbApp">
+<head>
+    <meta charset="UTF-8">
+    <title>OMDB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Omdb Application</h1>
+        <div ng-include="'views/header/header.view.html'"></div>
+
+        <div ng-view></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="views/header/navigation.controller.js"></script>
+    <script src="views/login/login.controller.js"></script>
+    <script src="services/user.service.client.js"></script>
+</body>
+</html>
