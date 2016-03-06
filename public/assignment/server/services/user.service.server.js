@@ -22,14 +22,14 @@ module.exports = function (app, model) {
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", getUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
-    app.get("/api/assignment/user?username=alice&password=wonderland", getUserByCredentials);
+    app.post("/api/assignment/user/login", getUserByCredentials);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
 
     function createUser(req, res) {
         var user = req.body;
-        var users = model.createUser(user);
-        res.json(users);
+        user = model.createUser(user);
+        res.json(user);
     }
 
     function getAllUsers(req, res) {
@@ -58,16 +58,25 @@ module.exports = function (app, model) {
     }
 
     function getUserByCredentials(req, res) {
+        var user = req.body;
         var credentials = {
-            username: req.query.username,
-            password: req.query.password
+            username: user.username,
+            password: user.password
         };
+        console.log(req);
+        console.log(credentials);
+
         var user = model.findUserByCredentials(credentials);
         if (user) {
             res.json(user);
             return;
         }
-        res.json({message: "User not found"});
+        res
+            .status(404)
+            .send({
+                "success": false,
+                "message": "User not found or Incorrect password!"
+            });
     }
 
     function updateUserById(req, res) {

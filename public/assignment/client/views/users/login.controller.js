@@ -7,21 +7,23 @@
         .controller("LoginController", LoginController);
 
     function LoginController($scope, $rootScope, $location, UserService){
-        $scope.login = login;
+        var vm = this;
+
+        vm.login = login;
 
         function login(user){
             UserService
-                .findUserByCredentials(user.username, user.password)
+                .findUserByCredentials(vm.user)
                 .then(renderUser, renderError);
 
             function renderUser (response){
-                console.log(response.data);
+                console.log(response);
                 $rootScope.currentUser = response.data;
                 $location.url('/profile');
             }
 
             function renderError (response){
-                $scope.message = response.data.message;
+                vm.message = response.data.message;
             }
         }
 
