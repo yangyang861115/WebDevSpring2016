@@ -1,18 +1,20 @@
-/**
- * Created by yangyang on 3/5/16.
- */
 (function(){
     angular
         .module("OmdbApp")
         .factory("MovieService", movieService);
 
-    function movieService($http){
+    function movieService($http) {
         var api = {
-            setUserLikesMovie: setUserLikesMovie
+            userLikesMovie: userLikesMovie,
+            findUserLikes: findUserLikes
         };
         return api;
 
-        function setUserLikesMovie(userId, movie){
+        function findUserLikes (imdbID) {
+            return $http.get("/api/project/movie/"+imdbID+"/user");
+        }
+
+        function userLikesMovie(userId, movie) {
             return $http.post("/api/project/user/"+userId+"/movie/"+movie.imdbID, movie);
         }
     }

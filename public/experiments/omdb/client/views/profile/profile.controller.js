@@ -1,7 +1,4 @@
-/**
- * Created by yangyang on 3/3/16.
- */
-(function () {
+(function(){
     angular
         .module("OmdbApp")
         .controller("ProfileController", profileController);
@@ -12,11 +9,11 @@
         function init() {
             UserService
                 .getProfile()
-                .then(function(response){
+                .then(function (response) {
                     vm.profile = response.data;
                     console.log(vm.profile);
                 });
         }
-        init();
+        return init();
     }
 })();

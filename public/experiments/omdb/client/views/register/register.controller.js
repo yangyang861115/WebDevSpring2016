@@ -1,24 +1,21 @@
-/**
- * Created by yangyang on 3/5/16.
- */
 (function(){
     angular
         .module("OmdbApp")
         .controller("RegisterController", registerController);
 
-    function registerController(UserService, $location){
+    function registerController(UserService, $location) {
         var vm = this;
 
-        vm.register  = register;
+        vm.register = register;
 
-        function init(){
+        function init() {
 
         }
         init();
 
-        function register(user){
+        function register(user) {
             UserService
-                .createUser(user)
+                .register(user)
                 .then(function(response){
                     var currentUser = response.data;
                     if(currentUser != null) {

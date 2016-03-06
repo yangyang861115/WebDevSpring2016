@@ -1,45 +1,41 @@
-/**
- * Created by yangyang on 3/3/16.
- */
-(function () {
+(function(){
     angular
         .module("OmdbApp")
         .factory("UserService", userService);
 
     function userService($http, $rootScope) {
         var api = {
-            findUserByCredentials: findUserByCredentials,
+            login: login,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
-            createUser: createUser,
-            logout:logout,
+            register: register,
+            logout: logout,
             getProfile: getProfile
         };
         return api;
 
-        function findUserByCredentials(credentials) {
-            return $http.post("/api/project/omdb/login", credentials);
+        function getProfile() {
+            return $http.get("/api/project/omdb/profile/"+$rootScope.currentUser._id);
         }
 
-        function setCurrentUser(user){
-            $rootScope.currentUser = user;
-        }
-
-        function getCurrentUser(){
-            //return $rootScope.currentUser;
-            return $http.get("/api/project/omdb/loggedin");
-        }
-
-        function createUser(user){
+        function register(user) {
             return $http.post("/api/project/omdb/register", user);
         }
 
-        function logout(){
+        function logout() {
             return $http.post("/api/project/omdb/logout");
         }
 
-        function getProfile(){
-            return $http.get("/api/project/omdb/profile/" + $rootScope.currentUser._id);
+        function getCurrentUser() {
+            return $http.get("/api/project/omdb/loggedin");
+        }
+
+        function setCurrentUser(user) {
+            $rootScope.currentUser = user;
+        }
+
+        function login(credentials) {
+            return $http.post("/api/project/omdb/login", credentials);
         }
     }
 })();

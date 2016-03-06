@@ -1,7 +1,4 @@
-/**
- * Created by yangyang on 3/5/16.
- */
-(function () {
+(function(){
     angular
         .module("OmdbApp")
         .factory("OmdbService", omdbService);
@@ -9,16 +6,16 @@
     function omdbService($http) {
         var api = {
             searchMovieByTitle: searchMovieByTitle,
-            searchMovieByImdbID: searchMovieByImdbID
+            findMovieByImdbID: findMovieByImdbID
         };
         return api;
 
-        function searchMovieByTitle(title) {
-            return $http.get("http://www.omdbapi.com/?s=" + title);
+        function findMovieByImdbID(imdbID) {
+            return $http.get("http://www.omdbapi.com/?i="+imdbID);
         }
 
-        function searchMovieByImdbID(imdbID) {
-            return $http.get("http://www.omdbapi.com/?i=" + imdbID);
+        function searchMovieByTitle(title) {
+            return $http.get("http://www.omdbapi.com/?s="+title);
         }
     }
 })();
