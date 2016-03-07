@@ -19,7 +19,7 @@
         return api;
 
         function findUserByUsername(username){
-            return $http.get("/api/assignment/user?username=" + username);
+            return $http.get("/api/assignment/user/profile/" + username);
         }
 
         function findUserByCredentials(user) {

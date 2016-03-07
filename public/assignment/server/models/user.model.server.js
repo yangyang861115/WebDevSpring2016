@@ -73,11 +73,12 @@ module.exports = function() {
 
     function updateUser(id, user){
         for (var u in users) {
-            if (users[u]._id === id) {
+            if (users[u]._id == id) {
                 users[u].username = user.username;
                 users[u].firstName = user.firstName;
                 users[u].lastName = user.lastName;
                 users[u].password = user.password;
+                users[u].email = user.email;
                 return users[u];
             }
         }

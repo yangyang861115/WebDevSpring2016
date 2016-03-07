@@ -21,7 +21,7 @@ module.exports = function (app, model) {
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", getUserById);
-    app.get("/api/assignment/user?username=username", getUserByUsername);
+    app.get("/api/assignment/user/profile/:username", getUserByUsername);
     app.post("/api/assignment/user/login", getUserByCredentials);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
@@ -54,7 +54,12 @@ module.exports = function (app, model) {
             res.json(user);
             return;
         }
-        res.json({message: "User not found"});
+        res
+            .status(404)
+            .send({
+                "success": false,
+                "message": "User not found"
+            });
     }
 
     function getUserByCredentials(req, res) {
@@ -63,8 +68,6 @@ module.exports = function (app, model) {
             username: user.username,
             password: user.password
         };
-        console.log(req);
-        console.log(credentials);
 
         var user = model.findUserByCredentials(credentials);
         if (user) {
@@ -82,12 +85,17 @@ module.exports = function (app, model) {
     function updateUserById(req, res) {
         var id = req.params.id;
         var user = req.body;
+
         user = model.updateUser(id, user);
+
         if (user) {
             res.json(user);
             return;
         }
-        res.json({message: "User not found"});
+        res.status(400)
+            .send({
+                error: "Something went wrong! Update was not saved."
+            });
     }
 
     function deleteUserById(req, res) {
