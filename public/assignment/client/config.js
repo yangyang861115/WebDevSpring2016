@@ -47,7 +47,7 @@
                 controller: "FormController",
                 controllerAs: "model",
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    checkLoggedIn: checkLoggedIn
                 }
             })
             .when("/fields", {
@@ -55,7 +55,7 @@
                 controller: "FieldController",
                 controllerAs: "model",
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    checkLoggedIn: checkLoggedIn
                 }
             })
             .otherwise({
@@ -89,7 +89,7 @@
         UserService
             .getCurrentUser()
             .then(function(response){
-                //console.log(response);
+                console.log(response);
                 var currentUser = response.data;
                 UserService.setCurrentUser(currentUser);
                 deferred.resolve();
