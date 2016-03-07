@@ -4,14 +4,16 @@
     "firstName": "Alice",
     "lastName": "Wonderland",
     "username": "alice",
-    "password": "alice"
+    "password": "alice",
+    "role": "student"
   },
   {
     "_id": 234,
     "firstName": "Bob",
     "lastName": "Hope",
     "username": "bob",
-    "password": "bob"
+    "password": "bob",
+    "role": "admin"
   },
   {
     "_id": 345,

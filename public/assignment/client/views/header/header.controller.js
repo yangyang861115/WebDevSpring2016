@@ -6,13 +6,25 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, $rootScope, UserService, $location){
+    function HeaderController(UserService, $location){
+        var vm = this;
+        vm.logout = logout;
 
-        $scope.logout = logout;
+        function init(){
+
+        }
+        init();
+
 
         function logout(){
-            $rootScope.currentUser = null;
-            $location.url("/home");
+            UserService.
+                setCurrentUser(null);
+
+            UserService
+                .logout()
+                .then(function(response) {
+                    $location.url("/home");
+                });
         }
     }
 })();

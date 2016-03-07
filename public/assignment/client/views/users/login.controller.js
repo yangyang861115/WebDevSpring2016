@@ -12,8 +12,11 @@
         vm.login = login;
 
         function login(user){
+            if (!user){
+                return;
+            }
             UserService
-                .findUserByCredentials(vm.user)
+                .login(vm.user)
                 .then(renderUser, renderError);
 
             function renderUser (response){

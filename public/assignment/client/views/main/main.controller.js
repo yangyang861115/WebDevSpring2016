@@ -6,7 +6,7 @@
         .module("FormBuilderApp")
         .controller("MainController", MainController);
 
-    function MainController($scope, $location) {
+    function MainController($location) {
 
     }
 })();

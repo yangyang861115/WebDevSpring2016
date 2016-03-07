@@ -19,16 +19,19 @@ module.exports = function (app, model) {
      removes an existing user whose id property is equal to the id path parameter. Responds with an array of all users
      */
     app.post("/api/assignment/user", createUser);
+    app.post("/api/assignment/user/login", login);
+    app.post("/api/assignment/user/logout", logout);
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", getUserById);
+    app.get("/api/assignment/user/check/loggedin", loggedin);
     app.get("/api/assignment/user/profile/:username", getUserByUsername);
-    app.post("/api/assignment/user/login", getUserByCredentials);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
 
     function createUser(req, res) {
         var user = req.body;
         user = model.createUser(user);
+        req.session.currentUser = user;
         res.json(user);
     }
 
@@ -62,7 +65,7 @@ module.exports = function (app, model) {
             });
     }
 
-    function getUserByCredentials(req, res) {
+    function login(req, res) {
         var user = req.body;
         var credentials = {
             username: user.username,
@@ -70,6 +73,7 @@ module.exports = function (app, model) {
         };
 
         var user = model.findUserByCredentials(credentials);
+        req.session.currentUser = user;
         if (user) {
             res.json(user);
             return;
@@ -80,6 +84,15 @@ module.exports = function (app, model) {
                 "success": false,
                 "message": "User not found or Incorrect password!"
             });
+    }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.send(200);
+    }
+
+    function loggedin(req, res) {
+        res.json(req.session.currentUser);
     }
 
     function updateUserById(req, res) {

@@ -27,9 +27,14 @@ module.exports = function() {
 
     function createUser(user){
         var now = new Date();
-        user._id = "id_" + now.getTime();
-        users.push(user);
-        return user;
+        var newUser = {
+            _id : "id_" + now.getTime(),
+            username: user.username,
+            password: user.password,
+            email: user.email
+        };
+        users.push(newUser);
+        return newUser;
     }
 
     function findAllUsers() {
