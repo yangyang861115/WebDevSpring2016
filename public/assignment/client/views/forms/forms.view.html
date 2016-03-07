@@ -30,7 +30,7 @@
                     </a>
                 </td>
             </tr>
-            <tr ng-repeat="f in model.forms" ng-class="{'success': selected === $index}">
+            <tr ng-repeat="f in model.forms" ng-class="{'success': model.selected === $index}">
                 <td>{{f.title}}</td>
                 <td>
                     <a>

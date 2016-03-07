@@ -105,7 +105,7 @@
             .getCurrentUser()
             .then(function(response) {
                 var currentUser = response.data;
-                if(currentUser.role && currentUser.role.indexOf('admin') >= 0) {
+                if(currentUser.roles && currentUser.roles.indexOf('admin') >= 0) {
                     UserService.setCurrentUser(currentUser);
                     deferred.resolve();
                 } else {

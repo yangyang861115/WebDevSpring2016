@@ -1,7 +1,7 @@
 /**
  * Created by yangyang on 2/29/16.
  */
-module.exports = function(app, model) {
+module.exports = function (app, model) {
     /*
      GET /api/assignment/user/:userId/form
      returns an array of forms belonging to a user whose id is equal to the userId path parameter
@@ -29,17 +29,35 @@ module.exports = function(app, model) {
     app.get("/api/assignment/form/:formId", getFormByFormId);
     app.delete("/api/assignment/form/:formId", deleteFormByFormId);
 
-    function createFormForUserId (req, res){
+    function createFormForUserId(req, res) {
         var userId = req.params.userId;
         var form = req.body;
-        var forms = model.createForm(form);
+        form.userId = userId;
+        form = model.createForm(form);
+        //console.log(form);
+        var forms = model.findFormsByUserId(userId);
         res.json(forms);
     }
 
     function updateFormByFormId(req, res) {
         var formId = req.params.formId;
         var form = req.body;
-        var form = model.updateForm(formId, form);
+        var userId = form.userId;
+        form = model.updateForm(formId, form);
+        var forms = model.findFormsByUserId(userId);
+        res.json(forms);
+
+    }
+
+    function getFormsByUserId(req, res) {
+        var userId = parseInt(req.params.userId);
+        var forms = model.findFormsByUserId(userId);
+        res.json(forms);
+    }
+
+    function getFormByFormId(req, res) {
+        var formId = req.params.formId;
+        var form = model.findFormById(id);
         if (form) {
             res.json(form);
             return;
@@ -47,34 +65,14 @@ module.exports = function(app, model) {
         res.json({message: "Form not found"});
     }
 
-    function getFormsByUserId(req, res){
-        var userId = parseInt(req.params.userId);
-        var forms = model.findFormsByUserId(userId);
-        if (forms) {
+    function deleteFormByFormId(req, res) {
+        var formId = req.params.formId;
+        var userId = model.findFormById(formId).userId;
+        if (model.deleteForm(formId)) {
+            var forms = model.findFormsByUserId(userId);
             res.json(forms);
-            return;
         }
-        res.json({message: "No form for this user is found"});
 
-    }
-
-    function getFormByFormId(req, res){
-        var formId = req.params.formId;
-        var form = model.findFormById(id);
-        if(form) {
-            res.json(form);
-            return;
-        }
-        res.json({message: "Form not found"});
-    }
-
-    function deleteFormByFormId(req, res){
-        var formId = req.params.formId;
-        if(model.deleteForm(formId)){
-            res.send(200);
-            return;
-        }
-        res.json({message: "Form not found"});
     }
 
 };

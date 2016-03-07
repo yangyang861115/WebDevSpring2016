@@ -27,7 +27,7 @@ module.exports = function() {
         };
 
         forms.push(newForm);
-        return newForm;
+        return forms;
     }
 
     function findAllForms() {
