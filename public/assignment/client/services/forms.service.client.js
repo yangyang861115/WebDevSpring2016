@@ -17,19 +17,19 @@
         return api;
 
         function createFormForUser(userId, form) {
-            $http.post("/api/assignment/user/" + userId + "/form", form);
+            return $http.post("/api/assignment/user/" + userId + "/form", form);
         }
 
         function findAllFormsForUser(userId) {
-            $http.get("/api/assignment/user/" + userId + "/form");
+            return $http.get("/api/assignment/user/" + userId + "/form");
         }
 
         function deleteFormById(formId) {
-            $http.delete("/api/assignment/form/" + formId);
+            return $http.delete("/api/assignment/form/" + formId);
         }
 
         function updateFormById(formId, form) {
-            $http.put("/api/assignment/form/" + formId, form);
+            return $http.put("/api/assignment/form/" + formId, form);
         }
     }
 })();

@@ -10,16 +10,24 @@ module.exports = function() {
         findAllForms: findAllForms,
         findFormById: findFormById,
         findFormByTitle: findFormByTitle,
+        findFormsByUserId: findFormsByUserId,
         updateForm: updateForm,
         deleteForm: deleteForm,
+
     };
     return api;
 
     function createForm(form){
         var now = new Date();
-        form._id = "id" + now.getTime();
-        forms.push(form);
-        return forms;
+        var newForm = {
+            _id: "id_" + now.getTime(),
+            title: form.title,
+            userId: form.userId,
+            fields: form.fields
+        };
+
+        forms.push(newForm);
+        return newForm;
     }
 
     function findAllForms() {
@@ -28,7 +36,7 @@ module.exports = function() {
 
     function findFormById(id) {
         for(var f in forms) {
-            if(forms[f]._id === id){
+            if(forms[f]._id == id){
                 return forms[f];
             }
         }
@@ -37,7 +45,7 @@ module.exports = function() {
 
     function findFormByTitle(title) {
         for(var f in forms) {
-            if(forms[f].title === title){
+            if(forms[f].title == title){
                 return forms[f];
             }
         }
@@ -46,7 +54,7 @@ module.exports = function() {
 
     function updateForm(id, form) {
         for(var f in forms) {
-            if(forms[f]._id === id){
+            if(forms[f]._id == id){
                 forms[f].title = form.title;
                 forms[f].fields = form.fields;
                 return forms[f];
@@ -57,11 +65,21 @@ module.exports = function() {
 
     function deleteForm(id) {
         for(var f in forms) {
-            if(forms[f]._id === id){
+            if(forms[f]._id == id){
                 forms.splice(f, 1);
                 return true;
             }
         }
         return false;
+    }
+
+    function findFormsByUserId(userId){
+        var userForms = [];
+        for(var f in forms) {
+            if(forms[f].userId == userId){
+                userForms.push(forms[f]);
+            }
+        }
+        return userForms;
     }
 };

@@ -20,24 +20,24 @@
             </thead>
             <tbody>
             <tr>
-                <td><input ng-model="form.title" type="text" placeholder="name"></td>
+                <td><input ng-model="model.form.title" type="text" placeholder="name"></td>
                 <td>
                     <a>
-                        <scan ng-click="addForm(form)" class="glyphicon glyphicon-plus"></scan>
+                        <scan ng-click="model.addForm(model.form)" class="glyphicon glyphicon-plus"></scan>
                     </a>
                     <a>
-                        <scan ng-click="updateForm(form)" class="glyphicon glyphicon-ok"></scan>
+                        <scan ng-click="model.updateForm(model.form)" class="glyphicon glyphicon-ok"></scan>
                     </a>
                 </td>
             </tr>
-            <tr ng-repeat="form in forms" ng-class="{'success': selected === $index}">
-                <td>{{form.title}}</td>
+            <tr ng-repeat="f in model.forms" ng-class="{'success': selected === $index}">
+                <td>{{f.title}}</td>
                 <td>
                     <a>
-                        <scan ng-click="deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
+                        <scan ng-click="model.deleteForm($index)" class="glyphicon glyphicon-remove"></scan>
                     </a>
                     <a>
-                        <scan ng-click="selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
+                        <scan ng-click="model.selectForm($index)" class="glyphicon glyphicon-pencil"></scan>
                     </a>
                 </td>
             </tr>

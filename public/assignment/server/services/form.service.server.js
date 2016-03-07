@@ -48,7 +48,13 @@ module.exports = function(app, model) {
     }
 
     function getFormsByUserId(req, res){
-        var userId = req.params.userId;
+        var userId = parseInt(req.params.userId);
+        var forms = model.findFormsByUserId(userId);
+        if (forms) {
+            res.json(forms);
+            return;
+        }
+        res.json({message: "No form for this user is found"});
 
     }
 
