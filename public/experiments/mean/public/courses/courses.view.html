@@ -1,0 +1,63 @@
+<html ng-app="WhiteBoardApp">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body ng-controller="CourseController">
+<div class="container">
+    <h1>Courses</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Seats</th>
+            <th>Starts</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td><input type="text" class="form-control" ng-model="course.title"></td>
+            <td><input type="text" class="form-control" ng-model="course.seats"></td>
+            <td><input type="date" class="form-control" ng-model="course.starts"></td>
+            <td>
+                <button class="btn btn-primary"
+                ng-click="createCourse(course)">
+                    Create
+                </button>
+                <button class="btn btn-success"
+                ng-click="updateCourse(course)">
+                    Update
+                </button>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in courses">
+            <td>{{course.title}}</td>
+            <td>{{course.seats}}</td>
+            <td>{{course.starts | date: 'short'}}</td>
+            <td>
+                <button class="btn btn-info"
+                        ng-click="selectCourse(course._id)">Select
+                </button>
+                <button class="btn btn-danger"
+                        ng-click="deleteCourse(course._id)">Remove
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+<script src="../app.js"></script>
+<script src="courses.controller.js"></script>
+<script src="courses.service.js"></script>
+</body>
+</html>
+
+
+
