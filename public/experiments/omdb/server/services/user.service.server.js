@@ -7,25 +7,46 @@ module.exports = function(app, movieModel, userModel) {
 
     function profile(req, res) {
         var userId = req.params.userId;
-        var user = userModel.findUserById(userId);
-        var movieImdbIDs = user.likes;
-        var movies = movieModel.findMoviesByImdbIDs(movieImdbIDs);
-        user.likesMovies = movies;
-        res.json(user);
+        var user = userModel.findUserById(userId)
+            .then(
+                function(doc) {
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function register(req, res) {
         var user = req.body;
-        user = userModel.createUser(user);
-        req.session.currentUser = user;
-        res.json(user);
+        user = userModel.createUser(user)
+            .then(
+                //login user if promise resolved
+                function(doc){
+                    req.session.currentUser = doc;
+                    res.json(user);
+                },
+                //send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function login(req, res) {
         var credentials = req.body;
-        var user = userModel.findUserByCredentials(credentials);
-        req.session.currentUser = user;
-        res.json(user);
+        var user = userModel.findUserByCredentials(credentials)
+            .then(
+                function(doc) {
+                    req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
     function loggedin(req, res) {

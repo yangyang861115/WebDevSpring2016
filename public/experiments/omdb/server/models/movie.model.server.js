@@ -1,7 +1,7 @@
 /**
  * Created by yangyang on 3/5/16.
  */
-module.exports = function() {
+module.exports = function(db, mongoose) {
     var movies = [];
     var api = {
         findMovieByImdbID: findMovieByImdbID,
