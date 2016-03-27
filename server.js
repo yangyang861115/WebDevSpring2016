@@ -23,7 +23,9 @@ db2.on('error', function(error){
     console.log("Error loading the db - "+ error);
 });
 
-db2.on('disconnected', connect);
+db2.on('disconnected', function () {
+    mongoose.connect(connectionString);
+});
 
 
 app.use(bodyParser.json()); // for parsing application/json
