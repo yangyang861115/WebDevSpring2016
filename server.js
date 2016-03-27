@@ -19,6 +19,13 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 // connect to the database
 var db = mongoose.connect(connectionString);
 
+db.on('error', function(error){
+    console.log("Error loading the db - "+ error);
+});
+
+db.on('disconnected', connect);
+
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
 app.use(multer());// for parsing multipart/form-data
