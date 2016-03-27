@@ -1,7 +1,10 @@
 /**
  * Created by yangyang on 3/5/16.
  */
-module.exports = function(db, mongoose) {
+module.exports = function (db, mongoose) {
+    var MovieSchema = require("./movie.schema.server.js")(mongoose);
+    var Movie = mongoose.model("Movie", MovieSchema);
+
     var movies = [];
     var api = {
         findMovieByImdbID: findMovieByImdbID,
@@ -10,10 +13,10 @@ module.exports = function(db, mongoose) {
     };
     return api;
 
-    function findMoviesByImdbIDs (imdbIDs) {
+    function findMoviesByImdbIDs(imdbIDs) {
         var movies = [];
         for (var id in imdbIDs) {
-            var movie = findMovieByImdbID (imdbIDs[id]);
+            var movie = findMovieByImdbID(imdbIDs[id]);
             if (movie) {
                 movies.push(movie);
             }
@@ -22,19 +25,19 @@ module.exports = function(db, mongoose) {
     }
 
     function createMovie(movie) {
-        movie = {
-            _id: "ID_" + (new Date()).getTime(),
+        var movie = new Movie({
             imdbID: movie.imdbID,
             poster: movie.Poster,
             title: movie.Title
-        };
-        movies.push(movie);
-        return movie;
+        });
+        movie.save(function (err, doc) {
+            console.log(doc);
+        });
     }
 
     function findMovieByImdbID(imdbID) {
-        for(var m in movies) {
-            if(movies[m].imdbID === imdbID) {
+        for (var m in movies) {
+            if (movies[m].imdbID === imdbID) {
                 return movies[m];
             }
         }
