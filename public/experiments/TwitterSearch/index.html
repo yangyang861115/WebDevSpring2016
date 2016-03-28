@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="searchApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Faceted Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" ng-controller="SearchController as searchCtrl" ng-cloak>
+    <h1>OMDB Faceted Search</h1>
+    <!--search form-->
+    <form class="form form-inline" name="searchFm" novalidate>
+        <div class="form-group">
+            <label for="title">Title: </label>
+            <input type="text" ng-model="searchCtrl.movie.Title" id="title" name="title"
+                   class="form-control" placeholder="Batman" required/>
+        </div>
+        <div class="form-group">
+            <label for="year">Year: </label>
+            <input type="text" ng-model="searchCtrl.movie.Year" id="year" name="year"
+                   class="form-control" placeholder="2015" ng-pattern="searchCtrl.YEAR_PATTERN"/>
+        </div>
+        <div class="form-group">
+            <label for="type">Type: </label>
+            <select name="type" id="type" class="form-control"
+                    ng-options="option for option in searchCtrl.availableTypeOptions"
+                    ng-model="searchCtrl.movie.Type"></select>
+        </div>
+        <button ng-click="searchCtrl.search(searchFm)" class="btn btn-primary">
+            Search
+        </button>
+        <button ng-click="searchCtrl.reset(searchFm)" type="button" class="btn btn-warning">
+            Reset
+        </button>
+    </form><!--end of search form-->
+    <br>
+
+    <!--error msg-->
+    <div ng-show="searchFm.year.$dirty && searchFm.year.$error.pattern"
+         class="alert alert-danger" role="alert">
+        Please input a valid year(e.g. 2014).
+    </div>
+
+    <div ng-show="searchFm.$submitted || searchFm.title.$dirty">
+        <div ng-show="searchFm.title.$error.required"
+             class="alert alert-danger" role="alert">
+            Movie title to search for is required!
+        </div>
+    </div>
+    <!--end of error msg-->
+
+    <p>By default, the OMDb API return the first page with at most 10 results.
+        Title is required for search.<br>
+        The result area below only contains first 10 results.<br>
+        After the search button is clicked, any changes in the form fields will trigger the filler to the <strong>current</strong> search results.<br>
+        If you would like to see more results, you need to click the search button again.
+    </p>
+    {{searchCtrl.movie}}
+    <!--search result-->
+    <div class="row">
+        <div class="col-md-6">
+            <div ng-if="searchCtrl.data.Response==='True'">
+                <h3>Search Result</h3>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Title</th>
+                        <th>IMDB</th>
+                        <th>Type</th>
+                        <th>Year</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="movie in searchCtrl.data.Search | filter: searchCtrl.movie">
+                        <td><img ng-src="{{movie.Poster}}" height="100px"></td>
+                        <td>
+                            <a href ng-click="searchCtrl.details(movie.imdbID)">{{movie.Title}}</a>
+                        </td>
+                        <td>{{movie.imdbID}}</td>
+                        <td>{{movie.Type}}</td>
+                        <td>{{movie.Year}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="searchCtrl.data.Response === 'False'" class="alert alert-danger" role="alert">
+                {{searchCtrl.data.Error}}
+            </div>
+        </div>
+        <div class="col-md-6" ng-if="searchCtrl.movieDetails">
+            <div>
+                <h3>Details</h3>
+                <ul>
+                    <li ng-repeat="(key, val) in searchCtrl.movieDetails">
+                        <strong>{{key}}</strong> : {{val}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--end of search result-->
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="app.js"></script>
+<script src="search.controller.js"></script>
+<script src="omdb.service.client.js"></script>
+</body>
+</html>

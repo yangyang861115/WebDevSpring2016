@@ -65,6 +65,7 @@
         self.getQuote = function () {
             return $http.get(API + '/auth/quote')
         };
+        // add authentication methods here
 
         self.register = function(username, password) {
             return $http.post(API + '/auth/register', {
@@ -79,9 +80,6 @@
                 password: password
             })
         };
-
-        // add authentication methods here
-
     }
 
 // We won't touch anything in here

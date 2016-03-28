@@ -18,15 +18,6 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 // connect to the database
 var db = mongoose.connect(connectionString);
-//var db2 = mongoose.connection;
-//db2.on('error', function(error){
-//    console.log("Error loading the db - "+ error);
-//});
-//
-//db2.on('disconnected', function () {
-//    mongoose.connect(connectionString);
-//});
-
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
