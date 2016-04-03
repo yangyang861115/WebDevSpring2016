@@ -1,4 +1,4 @@
-module.exports = function(app, movieModel, userModel) {
+module.exports = function (app, movieModel, userModel) {
     app.post("/api/project/omdb/login", login);
     app.get("/api/project/omdb/loggedin", loggedin);
     app.post("/api/project/omdb/logout", logout);
@@ -7,15 +7,41 @@ module.exports = function(app, movieModel, userModel) {
 
     function profile(req, res) {
         var userId = req.params.userId;
-        var user = userModel.findUserById(userId)
+        var user = null;
+
+        // use model to find user by id
+        userModel.findUserById(userId)
             .then(
-                function(doc) {
-                    res.json(doc);
+                // first retrieve the user by user id
+                function (doc) {
+
+                    user = doc;
+
+                    // fetch movies this user likes
+                    return movieModel.findMoviesByImdbIDs(doc.likes);
                 },
-                function(err) {
+
+                // reject promise if error
+                function (err) {
                     res.status(400).send(err);
                 }
-            );
+            )
+            .then(
+                // fetch movies this user likes
+                function (movies) {
+
+                    // list of movies this user likes
+                    // movies are not stored in database
+                    // only added for UI rendering
+                    user.likesMovies = movies;
+                    res.json(user);
+                },
+
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function register(req, res) {
@@ -23,12 +49,12 @@ module.exports = function(app, movieModel, userModel) {
         user = userModel.createUser(user)
             .then(
                 //login user if promise resolved
-                function(doc){
+                function (doc) {
                     req.session.currentUser = doc;
                     res.json(user);
                 },
                 //send error if promise rejected
-                function(err) {
+                function (err) {
                     res.status(400).send(err);
                 }
             );
@@ -38,11 +64,11 @@ module.exports = function(app, movieModel, userModel) {
         var credentials = req.body;
         var user = userModel.findUserByCredentials(credentials)
             .then(
-                function(doc) {
+                function (doc) {
                     req.session.currentUser = doc;
                     res.json(doc);
                 },
-                function(err) {
+                function (err) {
                     res.status(400).send(err);
                 }
             );
