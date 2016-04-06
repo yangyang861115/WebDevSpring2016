@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students(Angular Material)</title>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body ng-app="myApp" layout="column" ng-controller="UserController as ul">
+
+<md-toolbar layout="row">
+    <md-button class="menu" ng-click="ul.toggleList()" aria-label="show list"
+    hide-gt-sm>
+        <md-icon md-svg-src="menu"></md-icon>
+    </md-button>
+    <h1>My First Angular Material</h1>
+</md-toolbar>
+
+<div class="container" layout="row" flex>
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp"
+    md-component-id="left">
+        <md-list ng-click="ul.toggleList()">
+            <md-list-item ng-repeat="u in ul.users">
+                <md-button ng-click="ul.selectUser(u)">
+                    <md-icon md-svg-src="{{u.avatar}}" class="avatar"></md-icon>
+                    {{u.name}}
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+
+    <md-content id="content" flex>
+        <div layout="row">
+            <md-icon md-svg-src="{{ul.selected.avatar}}" class="avatar"></md-icon>
+            <md-button class="share" md-no-ink aria-label="share with {{ul.selected.name}}"
+                       ng-click="ul.share(ul.selected)">
+                <md-icon md-svg-src="share"></md-icon>
+            </md-button>
+        </div>
+
+        <h2>{{ul.selected.name}}</h2>
+        <p>{{ul.selected.content}}</p>
+
+    </md-content>
+</div>
+
+
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+<script src="node_modules/angular-aria/angular-aria.min.js"></script>
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="users/Users.js"></script>
+<script src="users/UserService.js"></script>
+<script src="users/UserController.js"></script>
+<script>
+    angular.module("myApp", ['ngMaterial', 'users'])
+            .config(function($mdIconProvider, $mdThemingProvider){
+                $mdIconProvider.defaultIconSet("./svg/avatars.svg", 128);
+                $mdIconProvider.icon("share", "./svg/share.svg", 24);
+                $mdIconProvider.icon("menu", "./svg/menu.svg", 24);
+
+                $mdThemingProvider
+                        .theme('default')
+                        .primaryPalette('brown')
+                        .accentPalette('red');
+            });
+
+</script>
+
+</body>
+</html>
