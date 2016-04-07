@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Directives</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Custom Directives "AECM" attribute, element, class, comment</h1>
+    <h2>1 shared scope</h2>
+    <div ng-controller="ProductController">
+        <h4>{{name}}</h4>
+        <my-first-directive></my-first-directive>
+    </div>
+    <hr>
+
+    <h2>2 inherited scope</h2>
+    <div ng-controller="StudentController">
+        <my-second-directive></my-second-directive>
+    </div>
+
+    <hr>
+    <h2>3 isolated scope('@', '=', '&')</h2>
+    <div ng-controller="ProductController">
+        <my-third-directive name="{{product.name}}"
+                            price="{{product.price}}"
+                            data="data">
+        </my-third-directive>
+    </div>
+</div>
+
+</body>
+</html>
