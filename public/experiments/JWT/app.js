@@ -2,7 +2,7 @@
  * Created by yangyang on 3/27/16.
  */
 (function () {
-    function authInterceptor(API, auth) {
+    function authInterceptor(API, auth, $window) {
         return {
             // automatically attach Authorization header
             request: function(config) {
@@ -21,6 +21,12 @@
                 }
 
                 return res;
+            },
+
+            responseError: function(res){
+                if(res.status === 401) {
+                    $window.location.href = "https://thinkster.io";
+                }
             }
         }
     }
@@ -34,6 +40,7 @@
             var base64 = base64Url.replace('-', '+').replace('_', '/');
             return JSON.parse($window.atob(base64));
         };
+        console.log(self.parseJwt("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmciOiJncm93ZGVlcC5jb20iLCJpcCI6IjY0LjEzNC4zOS41MCIsImlkIjoiODk3MSJ9.2nrKqo4NIgHT0gw9J7I_ONaPQ-Un1GyYMNELw7s7qiA"));
 
         self.saveToken = function(token) {
             $window.localStorage['jwtToken'] = token;
