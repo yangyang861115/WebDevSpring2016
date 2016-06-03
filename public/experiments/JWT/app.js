@@ -10,7 +10,6 @@
                 if(config.url.indexOf(API) === 0 && token) {
                     config.headers.Authorization = 'Bearer ' + token;
                 }
-
                 return config;
             },
 
@@ -40,7 +39,6 @@
             var base64 = base64Url.replace('-', '+').replace('_', '/');
             return JSON.parse($window.atob(base64));
         };
-        console.log(self.parseJwt("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmciOiJncm93ZGVlcC5jb20iLCJpcCI6IjY0LjEzNC4zOS41MCIsImlkIjoiODk3MSJ9.2nrKqo4NIgHT0gw9J7I_ONaPQ-Un1GyYMNELw7s7qiA"));
 
         self.saveToken = function(token) {
             $window.localStorage['jwtToken'] = token;
@@ -63,8 +61,6 @@
         self.logout = function() {
             $window.localStorage.removeItem('jwtToken');
         }
-
-
     }
 
     function userService($http, API, auth) {
